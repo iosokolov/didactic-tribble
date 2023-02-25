@@ -15,7 +15,7 @@ from sqlalchemy import (
 
 
 class Record(Model):
-    __tablename__ = 'person'
+    __tablename__ = 'record'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
