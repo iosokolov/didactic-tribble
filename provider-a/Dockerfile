@@ -9,10 +9,8 @@ ENV POETRY_HOME="/opt/poetry"
 
 
 COPY provider-a/ /app
-COPY ./pyproject.toml ./poetry.lock* /app/
+COPY ./pyproject.toml ./poetry.lock /app/
 WORKDIR /app
-
-
 
 RUN \
     apt-get update \
