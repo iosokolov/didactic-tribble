@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+
+  provider-a:
+    build:
+      context: provider-a
+      dockerfile: Dockerfile
+    command: make start
+    restart: unless-stopped
+    container_name: provider-a
+    ports:
+      - "9001:8000"
+    env_file:
+      - .env
+
+  provider-b:
+    build:
+      context: provider-b
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: provider-b
+    command: make start
+    ports:
+      - "9002:8000"
+    env_file:
+      - .env
+
+  airflow:
+    build:
+      context: airflow
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: make start
+    container_name: airflow
+    ports:
+      - "9000:8000"
+    depends_on:
+      - provider-a
+      - provider-b
+
+    env_file:
+      - .env
