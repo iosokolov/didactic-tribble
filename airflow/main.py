@@ -16,11 +16,11 @@ app = Sanic("my_first_app")
 async def post_search(request):
     async with session_maker() as session:
         record = await Record.create(session, data={'status': StatusEnum.PENDING})
-        await session.commit()
 
         schema = SearchOutSchema()
         res = schema.load({'search_id': record.request_uuid})
         res = schema.dump(res)
+        await session.commit()
         return sanic.response.JSONResponse(res)
 
 
