@@ -7,6 +7,10 @@ Create Date: ${create_date}
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy import table, column, Integer, String, Boolean, update, text, delete, bindparam, select
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.engine import Inspector
 ${imports if imports else ""}
 
 # revision identifiers, used by Alembic.
