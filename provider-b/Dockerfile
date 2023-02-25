@@ -28,7 +28,7 @@ RUN /bin/sh -c "if [ $DEV == 'true' ] ; then poetry install --no-root ; else poe
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-EXPOSE 9001
+EXPOSE 9002
 
 ENTRYPOINT ["python3", "main.py"]
 

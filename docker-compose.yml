@@ -14,30 +14,30 @@ services:
     env_file:
       - .env
 
-#  provider-b:
-#    build:
-#      context: provider-b
-#      dockerfile: Dockerfile
-#    restart: unless-stopped
-#    container_name: provider_b
-#    command: make start
-#    ports:
-#      - "9002:8000"
-#    env_file:
-#      - .env
-#
-#  airflow_db:
-#    image: postgres:14.1-alpine
-#    container_name: airflow_db
-#    restart: unless-stopped
-#    ports:
-#      - '5577:5432'
-#    environment:
-#      - POSTGRES_USER=${POSTGRES_USER}
-#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#      - POSTGRES_DB=${POSTGRES_DB}
-#      - POSTGRES_HOST=${POSTGRES_HOST}
-#
+  provider-b:
+    build:
+      context: .
+      dockerfile: provider-b/Dockerfile
+    command: make start
+    restart: unless-stopped
+    container_name: provider_b
+    ports:
+      - "9002:8000"
+    env_file:
+      - .env
+
+  airflow_db:
+    image: postgres:14.1-alpine
+    container_name: airflow_db
+    restart: unless-stopped
+    ports:
+      - '5577:5432'
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+
 #  airflow:
 #    build:
 #      context: airflow
