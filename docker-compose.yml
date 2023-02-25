@@ -31,12 +31,13 @@ services:
     container_name: airflow_db
     restart: unless-stopped
     ports:
-      - '5577:5432'
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_HOST=${POSTGRES_HOST}
+      - '5577:5432' # TODO pass port
+    environment: # TODO pass secrets safely
+      - POSTGRES_USER=airflow_db
+      - POSTGRES_PASSWORD=airflow_db
+      - POSTGRES_DB=airflow_db
+      - POSTGRES_HOST=localhost
+
 
 #  airflow:
 #    build:
