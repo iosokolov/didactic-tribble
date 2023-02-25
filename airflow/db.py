@@ -1,12 +1,9 @@
-from asyncio import current_task
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from pydantic.networks import PostgresDsn
-from sqlalchemy import create_engine
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_scoped_session
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine
 
-import settings
+import env_vars
 
 
 class AsyncPostgresDsn(PostgresDsn):
@@ -15,34 +12,19 @@ class AsyncPostgresDsn(PostgresDsn):
 
 DB_URI = AsyncPostgresDsn.build(
     scheme="postgresql+asyncpg",
-    user=settings.POSTGRES_USER,
-    password=settings.POSTGRES_PASSWORD,
-    host=settings.POSTGRES_HOST,
-    port=settings.POSTGRES_PORT,
-    path=f"/{settings.POSTGRES_DB}",
+    user=env_vars.POSTGRES_USER,
+    password=env_vars.POSTGRES_PASSWORD,
+    host=env_vars.POSTGRES_HOST,
+    port=env_vars.POSTGRES_PORT,
+    path=f"/{env_vars.POSTGRES_DB}",
 )
 
 engine = create_async_engine(
     DB_URI,
     pool_pre_ping=True,
-    echo=settings.ECHO,
-    pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW
+    echo=env_vars.ECHO,
+    pool_size=env_vars.DB_POOL_SIZE,
+    max_overflow=env_vars.DB_MAX_OVERFLOW,
 )
 
-async_session = async_sessionmaker(engine)
-
-# Session = async_scoped_session(
-#     sessionmaker(
-#         autocommit=False,
-#         autoflush=False,
-#         bind=engine,
-#         expire_on_commit=False,
-#         class_=AsyncSession,
-#     ),
-#     scopefunc=current_task
-# )
-# Session = async_scoped_session(
-#     async_sessionmaker(autocommit=False, autoflush=False, bind=engine,  expire_on_commit=False, class_=AsyncSession),
-#     scopefunc=current_task
-# )
+session_maker = async_sessionmaker(engine)

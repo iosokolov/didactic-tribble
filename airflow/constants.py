@@ -1,6 +1,6 @@
-from enum import Enum
+import enum
 
 
-class StatusEnum(str, Enum):
+class StatusEnum(str, enum.Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"

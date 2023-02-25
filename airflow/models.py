@@ -24,4 +24,4 @@ class Record(Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     request_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, nullable=False, index=True)
-    status = Column("status", Enum(StatusEnum), nullable=False)
+    status = Column("status", Enum(StatusEnum, name='status_enum'), nullable=False)
