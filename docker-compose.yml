@@ -12,7 +12,7 @@ services:
     ports:
       - "9001:8000"
     env_file:
-      - .env
+      - airflow/.env
 
   provider-b:
     build:
@@ -24,7 +24,7 @@ services:
     ports:
       - "9002:8000"
     env_file:
-      - .env
+      - airflow/.env
 
   airflow_db:
     image: postgres:14.1-alpine
@@ -37,7 +37,6 @@ services:
       - POSTGRES_PASSWORD=airflow_db
       - POSTGRES_DB=airflow_db
       - POSTGRES_HOST=localhost
-
 
 #  airflow:
 #    build:
