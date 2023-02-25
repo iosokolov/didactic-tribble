@@ -12,7 +12,7 @@ services:
     ports:
       - "9001:8000"
     env_file:
-      - airflow/.env
+      - provider-a/.env
 
   provider-b:
     build:
@@ -24,7 +24,7 @@ services:
     ports:
       - "9002:8000"
     env_file:
-      - airflow/.env
+      - provider-b/.env
 
   airflow_db:
     image: postgres:14.1-alpine
@@ -40,17 +40,16 @@ services:
 
 #  airflow:
 #    build:
-#      context: airflow
-#      dockerfile: Dockerfile
-#    restart: unless-stopped
+#      context: .
+#      dockerfile: airflow/Dockerfile
 #    command: make start
+#    restart: unless-stopped
 #    container_name: airflow
 #    ports:
 #      - "9000:8000"
+#    env_file:
+#      - airflow/.env
 #    depends_on:
 #      - provider-a
 #      - provider-b
 #      - airflow_db
-#
-#    env_file:
-#      - .env
