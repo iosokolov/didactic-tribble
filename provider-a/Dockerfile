@@ -1,8 +1,6 @@
 FROM python:3.10.8-slim-buster
 
-#RUN apt-get update && apt-get install -y \
-#    libzbar0 \
-#    libzbar-dev
+# TODO: optimize layers, multistage build, test build
 
 ENV PYTHONUNBUFFERED 1
 ENV POETRY_HOME="/opt/poetry"
@@ -33,3 +31,4 @@ ENV LANG C.UTF-8
 EXPOSE 9001
 
 ENTRYPOINT ["python3", "main.py"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
