@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     command: make start
     restart: unless-stopped
-    container_name: provider-a
+    container_name: provider_a
     ports:
       - "9001:8000"
     env_file:
@@ -19,7 +19,7 @@ services:
       context: provider-b
       dockerfile: Dockerfile
     restart: unless-stopped
-    container_name: provider-b
+    container_name: provider_b
     command: make start
     ports:
       - "9002:8000"
