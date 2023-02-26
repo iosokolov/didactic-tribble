@@ -95,7 +95,7 @@ class Rate(Model):
             index_elements=["currency_id", "date"],
             set_={
                 "quant": query.excluded.quant,
-                "quant_ktz": query.excluded.quant_ktz,
+                "quant_kzt": query.excluded.quant_kzt,
             },
         )
         await db.execute(query)
