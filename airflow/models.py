@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from base_model import Model
 from sqlalchemy import (
@@ -15,6 +16,8 @@ from sqlalchemy import (
     ARRAY, text, bindparam
 )
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.dialects.postgresql import JSONB, insert
 
 from constants import StatusEnum
 
@@ -37,6 +40,17 @@ class Currency(Model):
     __table_args__ = (
         UniqueConstraint(code, name="uix_currency_code"),
     )
+
+    @classmethod
+    async def bulk_upsert(cls, db: AsyncSession, items: List[dict]):
+        query = insert(cls.__table__).values(items)
+        query = query.on_conflict_do_update(
+            index_elements=["code"],
+            set_={
+                "name": query.excluded.name,
+            },
+        )
+        await db.execute(query)
 
 
 class Rate(Model):

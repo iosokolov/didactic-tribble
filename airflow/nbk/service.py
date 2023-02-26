@@ -9,7 +9,22 @@ import xmltodict
 
 
 class NbkService:
-    def parse(self, text: str) -> List[ItemInSchema]:
+    def prepare_currency_list(self, rates: List[dict]):
+        currency_dict = {
+            rate['title']: rate['fullname']
+            for rate in rates
+        }
+
+        currency_list = [
+            {
+                'code': title,
+                'name': fullname,
+            }
+            for title, fullname in currency_dict.items()
+        ]
+        return currency_list
+
+    def parse(self, text: str) -> List[dict]:
         data = xmltodict.parse(text)['rates']
         items = data['item']
         if isinstance(items, dict):
@@ -29,7 +44,7 @@ class NbkService:
 
         return res
 
-    async def get_rates(self, date_in: datetime.date) -> List[ItemInSchema]:
+    async def get_rates(self, date_in: datetime.date) -> List[dict]:
         client = NbkClient()
         response = await client.get_rates(date_in=date_in)
         response.raise_for_status()
