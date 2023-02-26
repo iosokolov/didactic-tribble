@@ -9,7 +9,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from db import session_maker
 from env_vars import CRON_CURRENCY_HOUR, CRON_CURRENCY_MINUTE
-from models import Currency
+from models import Currency, Rate
 from nbk.service import NbkService
 
 logger = logging.Logger(name=__name__, level='DEBUG')
@@ -24,7 +24,10 @@ async def update_currency_rates():
     async with session_maker() as session:
         currency_list = nbk_service.prepare_currency_list(rates)
         await Currency.bulk_upsert(session, currency_list)
+        await session.commit()
 
+        currency_mapping = await Currency.select_mapping(session)
+        await Rate.bulk_upsert(session, currency_list)
         await session.commit()
 
     logger.info('update_currency_rates finish')

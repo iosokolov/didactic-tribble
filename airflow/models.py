@@ -1,5 +1,5 @@
 import uuid
-from typing import List
+from typing import List, Dict
 
 from base_model import Model
 from sqlalchemy import (
@@ -18,6 +18,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.dialects.postgresql import JSONB, insert
+from sqlalchemy import select, update
 
 from constants import StatusEnum
 
@@ -52,6 +53,20 @@ class Currency(Model):
         )
         await db.execute(query)
 
+    @classmethod
+    async def select_mapping(
+            cls,
+            db: AsyncSession,
+            **kwargs,
+    ) -> Dict[str, int]:
+        query = select(cls.id).filter_by(**kwargs)
+        cur = await db.execute(query)
+        items = cur.scalars().all()
+        return {
+            item['code']: item['id']
+            for item in items
+        }
+
 
 class Rate(Model):
     __tablename__ = 'rate'
@@ -65,3 +80,10 @@ class Rate(Model):
     )
     quant = Column(DECIMAL, nullable=False)
     quant_kzt = Column(DECIMAL, nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint(
+            currency_id, date,
+            name="uix_rate_currency_id_date",
+        ),
+    )
