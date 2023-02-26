@@ -18,6 +18,7 @@ greenlet = "^2.0.2"
 pydantic = "^1.10.5"
 marshmallow = "^3.19.0"
 httpx = "^0.23.3"
+xmltodict = "^0.13.0"
 
 
 [build-system]
