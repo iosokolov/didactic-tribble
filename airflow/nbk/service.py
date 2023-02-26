@@ -54,9 +54,9 @@ class NbkService:
         return [
             {
                 'date': rate['date'],
-                'currency_id': currency_mapping[rate['code']],
+                'currency_id': currency_mapping[rate['title']],
                 'quant': rate['quant'],
-                'quant_ktz': rate['quant_ktz'],
+                'quant_ktz': rate['description'],
             }
             for rate in rates
         ]

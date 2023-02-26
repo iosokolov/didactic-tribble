@@ -59,11 +59,11 @@ class Currency(Model):
             db: AsyncSession,
             **kwargs,
     ) -> Dict[str, int]:
-        query = select(cls.id).filter_by(**kwargs)
+        query = select(cls).filter_by(**kwargs)
         cur = await db.execute(query)
         items = cur.scalars().all()
         return {
-            item['code']: item['id']
+            item.code: item.id
             for item in items
         }
 
