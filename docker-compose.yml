@@ -10,9 +10,9 @@ services:
     restart: unless-stopped
     container_name: provider_a
     ports:
-      - "9001:8000"
-    env_file:
-      - provider-a/.env
+      - "9001:9001"
+#    env_file:
+#      - provider-a/.env
 
   provider-b:
     build:
@@ -22,9 +22,9 @@ services:
     restart: unless-stopped
     container_name: provider_b
     ports:
-      - "9002:8000"
-    env_file:
-      - provider-b/.env
+      - "9002:9002"
+#    env_file:
+#      - provider-b/.env
 
   airflow_db:
     image: postgres:14.1-alpine
