@@ -19,6 +19,7 @@ pydantic = "^1.10.5"
 marshmallow = "^3.19.0"
 httpx = "^0.23.3"
 xmltodict = "^0.13.0"
+apscheduler = "^3.10.0"
 
 
 [build-system]

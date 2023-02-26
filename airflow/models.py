@@ -34,6 +34,10 @@ class Currency(Model):
     code = Column(String(3), nullable=False)
     name = Column(String(255), nullable=False)
 
+    __table_args__ = (
+        UniqueConstraint(code, name="uix_currency_code"),
+    )
+
 
 class Rate(Model):
     __tablename__ = 'rate'

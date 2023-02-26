@@ -12,3 +12,6 @@ ECHO = env.bool("ECHO", default=False)
 
 DB_POOL_SIZE: int = 5
 DB_MAX_OVERFLOW: int = 15
+
+CRON_CURRENCY_HOUR = env.str("CRON_CURRENCY_HOUR", default='12')
+CRON_CURRENCY_MINUTE = env.str("CRON_CURRENCY_MINUTE", default='00')
