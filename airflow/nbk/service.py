@@ -49,3 +49,14 @@ class NbkService:
         response = await client.get_rates(date_in=date_in)
         response.raise_for_status()
         return self.parse(response.text)
+
+    def prepare_rate_list(self, rates, currency_mapping):
+        return [
+            {
+                'date': rate['date'],
+                'currency_id': currency_mapping[rate['code']],
+                'quant': rate['quant'],
+                'quant_ktz': rate['quant_ktz'],
+            }
+            for rate in rates
+        ]

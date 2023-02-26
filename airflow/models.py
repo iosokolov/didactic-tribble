@@ -87,3 +87,15 @@ class Rate(Model):
             name="uix_rate_currency_id_date",
         ),
     )
+
+    @classmethod
+    async def bulk_upsert(cls, db: AsyncSession, items: List[dict]):
+        query = insert(cls.__table__).values(items)
+        query = query.on_conflict_do_update(
+            index_elements=["currency_id", "date"],
+            set_={
+                "quant": query.excluded.quant,
+                "quant_ktz": query.excluded.quant_ktz,
+            },
+        )
+        await db.execute(query)

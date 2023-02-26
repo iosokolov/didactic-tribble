@@ -27,7 +27,8 @@ async def update_currency_rates():
         await session.commit()
 
         currency_mapping = await Currency.select_mapping(session)
-        await Rate.bulk_upsert(session, currency_list)
+        rate_list = nbk_service.prepare_rate_list(rates=rates, currency_mapping=currency_mapping)
+        await Rate.bulk_upsert(session, rate_list)
         await session.commit()
 
     logger.info('update_currency_rates finish')
