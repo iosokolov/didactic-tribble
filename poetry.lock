@@ -1,4 +1,15 @@
 [[package]]
+name = "aioamqp"
+version = "0.15.0"
+description = "AMQP implementation using asyncio"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+pamqp = ">=3.1.0"
+
+[[package]]
 name = "aiofiles"
 version = "23.1.0"
 description = "File support for asyncio."
@@ -231,6 +242,18 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "pamqp"
+version = "3.2.1"
+description = "RabbitMQ Focused AMQP low-level library"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+codegen = ["lxml", "requests", "yapf"]
+testing = ["coverage", "flake8", "flake8-comprehensions", "flake8-deprecated", "flake8-import-order", "flake8-print", "flake8-quotes", "flake8-rst-docstrings", "flake8-tuple", "yapf"]
+
+[[package]]
 name = "psycopg2-binary"
 version = "2.9.5"
 description = "psycopg2 - Python-PostgreSQL Database Adapter"
@@ -455,9 +478,13 @@ python-versions = ">=3.4"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5dc8ce308dee44ec9a248ad518f45a21bed86387faeb998fe9d82904bd409523"
+content-hash = "29b6dcb79c175ea4fb41141e352b152086eb9ded05692c3879dc6031523355ee"
 
 [metadata.files]
+aioamqp = [
+    {file = "aioamqp-0.15.0-py37.py38.py39.py310-none-any.whl", hash = "sha256:0f38cc4db8db6fd062504b7c4b6703c800d2130d14d5492cf47d727de1929740"},
+    {file = "aioamqp-0.15.0.tar.gz", hash = "sha256:fcad924d7658e65ef074522a7e9527e0b0adad09b10774340ea9f3fd277452d8"},
+]
 aiofiles = [
     {file = "aiofiles-23.1.0-py3-none-any.whl", hash = "sha256:9312414ae06472eb6f1d163f555e466a23aed1c8f60c30cccf7121dba2e53eb2"},
     {file = "aiofiles-23.1.0.tar.gz", hash = "sha256:edd247df9a19e0db16534d4baaf536d6609a43e1de5401d7a4c1c148753a1635"},
@@ -779,6 +806,10 @@ multidict = [
 packaging = [
     {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
     {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+]
+pamqp = [
+    {file = "pamqp-3.2.1-py2.py3-none-any.whl", hash = "sha256:15acef752356593ca569d13dfedc8ada9f17deeeb8cec4f7b77825e2b6c7de3e"},
+    {file = "pamqp-3.2.1.tar.gz", hash = "sha256:22550ceb1ca50aafda65873e77e8c1c1b139fb5975e1a09860fae940cf8e970a"},
 ]
 psycopg2-binary = [
     {file = "psycopg2-binary-2.9.5.tar.gz", hash = "sha256:33e632d0885b95a8b97165899006c40e9ecdc634a529dca7b991eb7de4ece41c"},

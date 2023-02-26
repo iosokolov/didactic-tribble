@@ -15,3 +15,17 @@ DB_MAX_OVERFLOW: int = 15
 
 CRON_CURRENCY_HOUR = env.str("CRON_CURRENCY_HOUR", default='12')
 CRON_CURRENCY_MINUTE = env.str("CRON_CURRENCY_MINUTE", default='00')
+
+AMQP_HOST = env.str('AMQP_HOST', default='localhost')
+AMQP_USER = env.int('AMQP_USER', default='guest')
+AMQP_PASS = env.str('AMQP_PASS', default='guest')
+AMQP_VHOST = env.str('AMQP_VHOST', default='/')
+AMQP_PORT = env.int('AMQP_PORT', default=5672)
+
+EXCHANGE = env.str('EXCHANGE', default='my.exchange')
+QUEUE = env.str('QUEUE', default='my.main')
+QUEUE_DLQ = env.str('QUEUE_DLQ', default='my.main.dlq')
+QUEUE_ERROR = env.str('QUEUE_ERROR', default='my.main.error')
+
+RECONNECT_RESTART_COUNT = env.int('RECONNECT_RESTART_COUNT', default=10)
+RECONNECT_SLEEP_TIME = env.int('RECONNECT_SLEEP_TIME', default=5)
