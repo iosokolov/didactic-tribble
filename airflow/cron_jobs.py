@@ -7,6 +7,7 @@ import asyncio
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from env_vars import CRON_CURRENCY_HOUR, CRON_CURRENCY_MINUTE
+from nbk.service import NbkService
 
 logger = logging.Logger(name=__name__, level='DEBUG')
 logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -14,6 +15,8 @@ logger.addHandler(logging.StreamHandler(sys.stdout))
 
 async def update_currency_rates():
     logger.info('update_currency_rates start')
+    nbk_service = NbkService()
+    data = await nbk_service.get_rates(date_in=datetime.now().date())
 
 
     logger.info('update_currency_rates finish')
