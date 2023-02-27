@@ -20,6 +20,7 @@ async def post_search(request):
         res = schema.load({'search_id': record.request_uuid})
         res = schema.dump(res)
         await session.commit()
+        await send_search_task_to_amqp(request.app, request_uuid=res['search_id'])
         return sanic.response.JSONResponse(res)
 
 
@@ -37,5 +38,4 @@ async def get_search(request, search_id: UUID, currency: CurrencyEnum):
             'items': [{'a': True}]
         })
         await session.commit()
-        await send_search_task_to_amqp(request.app, request_uuid=res['search_id'])
         return sanic.response.JSONResponse(res)
