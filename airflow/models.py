@@ -30,6 +30,21 @@ class Record(Model):
     request_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, nullable=False, index=True)
     status = Column("status", Enum(StatusEnum, name='status_enum'), nullable=False)
 
+    @classmethod
+    async def update_by_uuid(
+            cls,
+            db: AsyncSession,
+            *,
+            request_uuid: uuid.UUID,
+            data: dict,
+    ):
+        data.pop("id", None)
+        query = update(cls).filter(
+            cls.request_uuid == request_uuid,
+        ).values(data)
+        await db.execute(query)
+        await db.flush()
+
 
 class Currency(Model):
     __tablename__ = 'currency'
@@ -99,3 +114,18 @@ class Rate(Model):
             },
         )
         await db.execute(query)
+
+
+# class Result(Model):
+#     __tablename__ = 'result'
+#
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     record_id = Column(
+#         Integer,
+#         ForeignKey("record.id", name="result_record_id_fkey"),
+#         nullable=False,
+#     )
+    # data = Column(
+    #     JSONB,
+    #     nullable=False,
+    # )
