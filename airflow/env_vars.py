@@ -32,7 +32,7 @@ AMQP_HOST = env.str('AMQP_HOST', default='localhost')
 AMQP_USER = env.int('AMQP_USER', default='guest')
 AMQP_PASS = env.str('AMQP_PASS', default='guest')
 AMQP_VHOST = env.str('AMQP_VHOST', default='/')
-AMQP_PORT = env.int('AMQP_PORT', default=5672)
+AMQP_PORT = env.int('AMQP_PORT', default=5679)
 
 EXCHANGE = env.str('EXCHANGE', default='my.exchange')
 QUEUE = env.str('QUEUE', default='my.main')

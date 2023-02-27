@@ -28,6 +28,8 @@ if __name__ == '__main__':
     else:
         raise Exception
 
+    app.blueprint(routes.srv)
+
     app.run(
         host=env_vars.HOST,
         port=port,
