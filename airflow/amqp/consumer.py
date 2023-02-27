@@ -9,6 +9,7 @@ class Handler:
 
     async def handle(self, channel, body, envelope, properties):
         data = json.loads(body.decode())
+        
 
 
 async def consumer(app):
@@ -20,4 +21,5 @@ async def consumer(app):
     await app.ctx.channel.basic_consume(
         callback=callback,
         queue_name=env_vars.QUEUE,
+        no_ack=True
     )

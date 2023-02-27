@@ -41,3 +41,7 @@ QUEUE_ERROR = env.str('QUEUE_ERROR', default='my.main.error')
 
 RECONNECT_RESTART_COUNT = env.int('RECONNECT_RESTART_COUNT', default=10)
 RECONNECT_SLEEP_TIME = env.int('RECONNECT_SLEEP_TIME', default=5)
+
+
+PROVIDER_A_URL = env.str('PROVIDER_A_URL', default='http://127.0.0.1:9001')
+PROVIDER_B_URL = env.str('PROVIDER_A_URL', default='http://127.0.0.1:9002')
