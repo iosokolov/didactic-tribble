@@ -6,7 +6,7 @@ APP_NAME = 'awesome_app'
 
 HOST = env.str('HOST', default='0.0.0.0')
 API_PORT = env.int('API_PORT', default=9000)
-AMQ_PORT = env.int('AMQ_PORT', default=8091)
+CONSUMER_PORT = env.int('CONSUMER_PORT', default=8091)
 SCHEDULE_PORT = env.int('SCHEDULE_PORT', default=8092)
 
 DEBUG = env.bool('DEBUG', default=False)
@@ -32,7 +32,7 @@ AMQP_HOST = env.str('AMQP_HOST', default='localhost')
 AMQP_USER = env.int('AMQP_USER', default='guest')
 AMQP_PASS = env.str('AMQP_PASS', default='guest')
 AMQP_VHOST = env.str('AMQP_VHOST', default='/')
-AMQP_PORT = env.int('AMQP_PORT', default=5679)
+AMQP_PORT = env.int('AMQP_PORT', default=5677)
 
 EXCHANGE = env.str('EXCHANGE', default='my.exchange')
 QUEUE = env.str('QUEUE', default='my.main')

@@ -18,7 +18,7 @@ if __name__ == '__main__':
         app.listener('before_server_start')(open_amqp)
         app.listener('before_server_stop')(close_amqp)
     elif command == 'consume':
-        port = env_vars.AMQP_PORT
+        port = env_vars.CONSUMER_PORT
         app.listener('before_server_start')(open_amqp)
         app.listener('after_server_start')(start_consume)
         app.listener('before_server_stop')(close_amqp)
