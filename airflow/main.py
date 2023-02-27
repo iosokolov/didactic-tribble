@@ -7,7 +7,7 @@ import routes
 from amqp.connection import start_consume, open_amqp, close_amqp
 from cron_jobs import init_scheduler
 
-app = Sanic("my_first_app")
+app = Sanic(env_vars.APP_NAME, strict_slashes=True)
 
 if __name__ == '__main__':
     command = sys.argv[1]

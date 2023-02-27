@@ -2,6 +2,8 @@ from envparse import env
 
 env.read_envfile()
 
+APP_NAME = 'awesome_app'
+
 HOST = env.str('HOST', default='0.0.0.0')
 API_PORT = env.int('API_PORT', default=9000)
 AMQ_PORT = env.int('AMQ_PORT', default=8091)
