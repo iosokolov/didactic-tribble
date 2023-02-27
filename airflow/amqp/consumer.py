@@ -16,8 +16,8 @@ async def consumer(app):
         handler = Handler(app)
         await handler.handle(channel, body, envelope, properties)
 
-    await app.channel.basic_qos(prefetch_count=10)
-    await app.channel.basic_consume(
+    await app.ctx.channel.basic_qos(prefetch_count=10)
+    await app.ctx.channel.basic_consume(
         callback=callback,
         queue_name=env_vars.QUEUE,
     )

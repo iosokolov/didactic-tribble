@@ -37,5 +37,5 @@ async def get_search(request, search_id: UUID, currency: CurrencyEnum):
             'items': [{'a': True}]
         })
         await session.commit()
-        await send_search_task_to_amqp(request.app, request_uuid=record.request_uuid)
+        await send_search_task_to_amqp(request.app, request_uuid=res['search_id'])
         return sanic.response.JSONResponse(res)

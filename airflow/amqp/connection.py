@@ -16,14 +16,14 @@ async def open_amqp(app):
     )
 
     channel = await protocol.channel()
-    app.transport = transport
-    app.protocol = protocol
-    app.channel = channel
+    app.ctx.transport = transport
+    app.ctx.protocol = protocol
+    app.ctx.channel = channel
 
 
 async def close_amqp(app):
-    await app.protocol.close()
-    app.transport.close()
+    await app.ctx.protocol.close()
+    app.ctx.transport.close()
 
 
 async def bind_queue(channel, queue_name, exchange_name, routing_key=None, arguments=None):
@@ -36,14 +36,14 @@ async def bind_queue(channel, queue_name, exchange_name, routing_key=None, argum
 
 
 async def start_consume(app, loop):
-    await app.channel.exchange_declare(
+    await app.ctx.channel.exchange_declare(
         exchange_name=env_vars.EXCHANGE,
         type_name='direct',
         durable=True
     )
 
     await bind_queue(
-        channel=app.channel,
+        channel=app.ctx.channel,
         queue_name=env_vars.QUEUE,
         exchange_name=env_vars.EXCHANGE,
         arguments={

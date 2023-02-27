@@ -5,7 +5,7 @@ import env_vars
 
 
 async def publish(app, payload: dict):
-    await app.channel.publish(
+    await app.ctx.channel.publish(
         payload=json.dumps(payload),
         exchange_name=env_vars.EXCHANGE,
         routing_key=env_vars.QUEUE,

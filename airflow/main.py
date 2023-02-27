@@ -15,6 +15,8 @@ if __name__ == '__main__':
     if command == 'server':
         port = env_vars.API_PORT
         app.blueprint(routes.api)
+        app.listener('before_server_start')(open_amqp)
+        app.listener('before_server_stop')(close_amqp)
     elif command == 'consume':
         port = env_vars.AMQP_PORT
         app.listener('before_server_start')(open_amqp)
