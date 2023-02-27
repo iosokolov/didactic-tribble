@@ -33,6 +33,6 @@ if __name__ == '__main__':
         port=port,
         workers=env_vars.WORKERS,
         debug=env_vars.DEBUG,
-        auto_reload=env_vars.AUTO_RELOAD,
+        # auto_reload=env_vars.AUTO_RELOAD,
         single_process=True,
     )
