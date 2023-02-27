@@ -26,7 +26,7 @@ if __name__ == '__main__':
     else:
         raise Exception
 
-    app.go_fast(
+    app.run(
         host=env_vars.HOST,
         port=port,
         workers=env_vars.WORKERS,

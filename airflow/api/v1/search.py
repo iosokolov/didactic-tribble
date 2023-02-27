@@ -6,7 +6,7 @@ from sanic import exceptions
 from amqp.producers import send_search_task_to_amqp
 from constants import StatusEnum, CurrencyEnum
 from db import session_maker
-from main import app
+
 from models import Record
 from schemas import SearchOutSchema, ResultOutSchema
 
@@ -37,5 +37,5 @@ async def get_search(request, search_id: UUID, currency: CurrencyEnum):
             'items': [{'a': True}]
         })
         await session.commit()
-        await send_search_task_to_amqp(app, request_uuid=record.request_uuid)
+        await send_search_task_to_amqp(request.app, request_uuid=record.request_uuid)
         return sanic.response.JSONResponse(res)
