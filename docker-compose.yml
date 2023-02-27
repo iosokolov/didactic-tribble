@@ -38,6 +38,14 @@ services:
       - POSTGRES_DB=airflow_db
       - POSTGRES_HOST=localhost
 
+  rabbitmq:
+    image: 'rabbitmq:3.6-management-alpine'
+    ports:
+      # The standard AMQP protocol port
+      - '5677:5672'
+      # HTTP management UI
+      - '15677:15672'
+
 #  airflow:
 #    build:
 #      context: .
@@ -53,3 +61,4 @@ services:
 #      - provider-a
 #      - provider-b
 #      - airflow_db
+#      - rabbitmq
