@@ -2,6 +2,16 @@ from envparse import env
 
 env.read_envfile()
 
+HOST = env.str('HOST', default='0.0.0.0')
+API_PORT = env.int('API_PORT', default=9000)
+AMQ_PORT = env.int('AMQ_PORT', default=8091)
+SCHEDULE_PORT = env.int('SCHEDULE_PORT', default=8092)
+
+DEBUG = env.bool('DEBUG', default=False)
+AUTO_RELOAD = env.bool('AUTO_RELOAD', default=False)
+
+WORKERS = env.int('WORKERS', default=1)
+
 POSTGRES_USER = env.str("POSTGRES_USER", default='airflow_db')
 POSTGRES_PASSWORD = env.str("POSTGRES_PASSWORD", default='airflow_db')
 POSTGRES_HOST = env.str("POSTGRES_HOST", default='localhost')
