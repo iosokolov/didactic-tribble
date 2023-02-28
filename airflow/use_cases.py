@@ -9,16 +9,30 @@ from models import Rate
 
 class CurrencyConverter:
     def __init__(self, rates: List[Rate]):
-        self.rates = rates
+        rate_by_currency = {
+            rate.currency: rate
+            for rate in rates
+        }
+
         coefs = defaultdict(lambda: defaultdict())
         currency_list = [r.currency for r in rates]
         for from_, to_ in itertools.product(currency_list, currency_list):
-            coefs[from_][to_] = None
+            rate_from = rate_by_currency[from_]
+            rate_to = rate_by_currency[to_]
+
+            coef_from = Fraction(int(rate_from.quant_kzt * 100), int(rate_from.quant * 100))
+            coef_to = Fraction(int(rate_to.quant_kzt * 100), int(rate_to.quant * 100))
+
+            coefs[from_][to_] = coef_from / coef_to
 
         for rate in rates:
             coefs[rate.currency]['KZT'] = Fraction(
                 int(rate.quant_kzt * 100),
                 int(rate.quant * 100),
+            )
+            coefs['KZT'][rate.currency] = Fraction(
+                int(rate.quant * 100),
+                int(rate.quant_kzt * 100),
             )
 
         self.coefs = coefs
