@@ -87,7 +87,6 @@ class Rate(Model):
     __tablename__ = 'rate'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    date = Column(Date, nullable=False)
     currency_id = Column(
         Integer,
         ForeignKey("currency.id", name="rate_currency_id_fkey"),
@@ -98,8 +97,8 @@ class Rate(Model):
 
     __table_args__ = (
         UniqueConstraint(
-            currency_id, date,
-            name="uix_rate_currency_id_date",
+            "currency_id",
+            name="uix_rate_currency_id",
         ),
     )
 
@@ -107,7 +106,7 @@ class Rate(Model):
     async def bulk_upsert(cls, db: AsyncSession, items: List[dict]):
         query = insert(cls.__table__).values(items)
         query = query.on_conflict_do_update(
-            index_elements=["currency_id", "date"],
+            index_elements=["currency_id"],
             set_={
                 "quant": query.excluded.quant,
                 "quant_kzt": query.excluded.quant_kzt,

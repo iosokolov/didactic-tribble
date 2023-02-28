@@ -53,7 +53,6 @@ class NbkService:
     def prepare_rate_list(self, rates, currency_mapping):
         return [
             {
-                'date': rate['date'],
                 'currency_id': currency_mapping[rate['title']],
                 'quant': rate['quant'],
                 'quant_kzt': rate['description'],
