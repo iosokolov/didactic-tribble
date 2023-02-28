@@ -3,7 +3,7 @@ import asyncio
 import aioamqp
 
 import env_vars
-from amqp.consumer import consumer
+from amqp.consumers import consumer
 
 import aioredis
 
