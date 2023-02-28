@@ -1,3 +1,4 @@
+import json
 from uuid import UUID
 
 import sanic
@@ -8,6 +9,7 @@ from constants import StatusEnum, CurrencyEnum
 from db import session_maker
 
 from models import Record
+from redis_service.client import redis_get
 from schemas import SearchOutSchema, ResultOutSchema
 
 
@@ -31,11 +33,13 @@ async def get_search(request, search_id: UUID, currency: CurrencyEnum):
         if not record:
             raise exceptions.NotFound
 
+        items = await redis_get(request.app, key=str(search_id))
+
         schema = ResultOutSchema()
         res = schema.dump({
             'search_id': record.request_uuid,
             'status': record.status,
-            'items': [{'a': True}]
+            'items': items,
         })
         await session.commit()
         return sanic.response.JSONResponse(res)

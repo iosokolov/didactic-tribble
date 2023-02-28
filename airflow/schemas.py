@@ -16,4 +16,4 @@ class ItemSchema(Schema):
 class ResultOutSchema(Schema):
     search_id = fields.UUID()
     status = fields.Enum(StatusEnum)
-    items = fields.List(fields.Nested(ItemSchema()))
+    items = fields.List(fields.Dict(), allow_none=True)

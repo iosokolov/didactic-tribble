@@ -1,11 +1,17 @@
 import asyncio
 import json
+import logging
+import sys
 
 import env_vars
 from constants import StatusEnum
 from db import session_maker
 from models import Record
 from providers.service import ProviderServiceA, ProviderServiceB
+from redis_service.client import redis_set
+
+logger = logging.Logger(name=__name__, level='DEBUG')
+logger.addHandler(logging.StreamHandler(sys.stdout))
 
 
 class Handler:
@@ -14,6 +20,8 @@ class Handler:
 
     async def handle(self, channel, body, envelope, properties):
         data = json.loads(body.decode())
+
+        search_id = data['request_uuid']
 
         provider_service_a = ProviderServiceA()
         provider_service_b = ProviderServiceB()
@@ -24,10 +32,19 @@ class Handler:
             return_exceptions=True
         )
 
+        results_to_save = []
+        for res in results:
+            if isinstance(res, Exception):
+                logger.error(f'Handler.handle error: {res}')
+                continue
+            results_to_save.extend(res)
+
+        await redis_set(self.app, key=search_id, value=results_to_save)
+
         async with session_maker() as session:
             await Record.update_by_uuid(
                 session,
-                request_uuid=data['request_uuid'],
+                request_uuid=search_id,
                 data={'status': StatusEnum.COMPLETED},
             )
             await session.commit()

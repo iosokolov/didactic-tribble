@@ -49,5 +49,7 @@ PROVIDER_B_URL = env.str('PROVIDER_A_URL', default='http://127.0.0.1:9002')
 PROVIDER_A_TIMEOUT = env.int('PROVIDER_A_TIMEOUT', default=30+10)
 PROVIDER_B_TIMEOUT = env.int('PROVIDER_A_TIMEOUT', default=60+10)
 
-REDIS_HOST = "localhost"
-REDIS_PORT = "6377"
+REDIS_HOST = env.str('REDIS_HOST', default='localhost')
+REDIS_PORT = env.str('REDIS_PORT', default="6377")
+REDIS_EXPIRE = env.int('REDIS_EXPIRE', default=3600 * 1000)   # milliseconds
+
