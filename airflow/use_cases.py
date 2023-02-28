@@ -1,13 +1,29 @@
+from collections import defaultdict
 from decimal import Decimal
+from fractions import Fraction
 from typing import List, Optional
+
+from models import Rate
 
 
 class CurrencyConverter:
-    def __init__(self, rates):
+    def __init__(self, rates: List[Rate]):
         self.rates = rates
+        coefs = defaultdict(lambda: defaultdict())
+        for rate in rates:
+            coefs[rate.currency]['KZT'] = Fraction(
+                int(rate.quant_kzt * 100),
+                int(rate.quant * 100),
+            )
+        self.coefs = coefs
 
     def convert(self, *, amount: Decimal, from_: str, to_: str) -> Decimal:
-        ...
+        if from_ == to_:
+            return amount
+
+        coef = self.coefs[from_][to_]
+        res = Fraction(amount) * coef
+        return res.numerator / Decimal(res.denominator)
 
 
 def convert_results_to_currency(
@@ -19,12 +35,12 @@ def convert_results_to_currency(
         pricing = item['pricing']
 
         amount = converter.convert(
-            amount=pricing['currency'],
+            amount=pricing['total'],
             from_=pricing['currency'],
             to_=currency,
         )
 
-        item['pricing'] = {
+        item['price'] = {
             "amount": amount,
             "currency": currency,
         }

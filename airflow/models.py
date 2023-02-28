@@ -51,7 +51,7 @@ class Rate(Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     currency = Column(String(3), nullable=False)
-    quant = Column(DECIMAL, nullable=False)
+    quant = Column(Integer, nullable=False)
     quant_kzt = Column(DECIMAL, nullable=False)
 
     __table_args__ = (
