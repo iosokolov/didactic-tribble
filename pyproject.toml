@@ -21,6 +21,7 @@ httpx = "^0.23.3"
 xmltodict = "^0.13.0"
 apscheduler = "^3.10.0"
 aioamqp = "^0.15.0"
+aioredis = "^2.0.1"
 
 
 [build-system]

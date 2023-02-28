@@ -5,6 +5,8 @@ import aioamqp
 import env_vars
 from amqp.consumer import consumer
 
+import aioredis
+
 
 async def bind_queue(channel, queue_name, exchange_name, routing_key=None, arguments=None):
     await channel.queue_declare(queue_name, durable=True, arguments=arguments)
@@ -52,3 +54,15 @@ async def close_amqp(app):
 
 async def start_consume(app, loop):
     asyncio.ensure_future(consumer(app), loop=loop)
+
+
+async def start_redis(app, loop):
+    app.ctx.redis = aioredis.from_url(
+        url=f'redis://{env_vars.REDIS_HOST}:{env_vars.REDIS_PORT}/',
+        encoding="utf-8",
+        decode_responses=True,
+    )
+
+
+async def stop_redis(app, loop):
+    await app.ctx.redis.close()

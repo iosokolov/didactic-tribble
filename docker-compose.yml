@@ -46,6 +46,12 @@ services:
       # HTTP management UI
       - '15677:15672'
 
+  redis:
+    image: redis:6.2.6-alpine
+    hostname: localhost
+    ports:
+      - '6377:6379'
+
 #  airflow:
 #    build:
 #      context: .
@@ -62,3 +68,4 @@ services:
 #      - provider-b
 #      - airflow_db
 #      - rabbitmq
+#      - redis
