@@ -8,9 +8,10 @@ from amqp.producers import send_search_task_to_amqp
 from constants import StatusEnum, CurrencyEnum
 from db import session_maker
 
-from models import Record
+from models import Record, Rate
 from redis_service.client import redis_get
 from schemas import SearchOutSchema, ResultOutSchema
+from use_cases import convert_results_to_currency
 
 
 # @app.post('/search')
@@ -27,13 +28,15 @@ async def post_search(request):
 
 
 # @app.get('/results/<search_id>/<currency>/')
-async def get_search(request, search_id: UUID, currency: CurrencyEnum):
+async def get_search(request, search_id: UUID, currency: str):
     async with session_maker() as session:
         record = await Record.select_one_or_none(session, request_uuid=search_id)
         if not record:
             raise exceptions.NotFound
 
-        items = await redis_get(request.app, key=str(search_id))
+        search_results = await redis_get(request.app, key=str(search_id))
+        rates = await Rate.select_all(session)
+        items = convert_results_to_currency(search_results, currency=currency, rates=rates)
 
         schema = ResultOutSchema()
         res = schema.dump({

@@ -50,10 +50,10 @@ class NbkService:
         response.raise_for_status()
         return self.parse(response.text)
 
-    def prepare_rate_list(self, rates, currency_mapping):
+    def prepare_rate_list(self, rates):
         return [
             {
-                'currency_id': currency_mapping[rate['title']],
+                'currency': rate['title'],
                 'quant': rate['quant'],
                 'quant_kzt': rate['description'],
             }
