@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV POETRY_HOME="/opt/poetry"
 
 
-COPY provider-a/ /app
+COPY provider-b/ /app
 COPY ./pyproject.toml ./poetry.lock /app/
 WORKDIR /app
 
