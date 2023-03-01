@@ -49,20 +49,19 @@ services:
     ports:
       - '6377:6379'
 
-#  airflow:
-#    build:
-#      context: .
-#      dockerfile: airflow/Dockerfile
-#    command: make start
-#    restart: unless-stopped
-#    container_name: airflow
-#    ports:
-#      - "9000:8000"
+  airflow:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: unless-stopped
+    container_name: airflow
+    ports:
+      - "9000:9000"
 #    env_file:
 #      - airflow/.env
-#    depends_on:
-#      - provider-a
-#      - provider-b
-#      - airflow_db
-#      - rabbitmq
-#      - redis
+    depends_on:
+      - provider-a
+      - provider-b
+      - airflow_db
+      - rabbitmq
+      - redis
