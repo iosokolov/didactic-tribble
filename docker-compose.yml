@@ -1,12 +1,10 @@
 version: "3"
 
 services:
-
   provider-a:
     build:
       context: .
       dockerfile: provider-a/Dockerfile
-    command: make start
     restart: unless-stopped
     container_name: provider_a
     ports:
@@ -18,7 +16,6 @@ services:
     build:
       context: .
       dockerfile: provider-b/Dockerfile
-    command: make start
     restart: unless-stopped
     container_name: provider_b
     ports:
