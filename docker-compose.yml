@@ -55,7 +55,7 @@ services:
     build:
       context: .
       dockerfile: airflow/Dockerfile
-    restart: unless-stopped
+#    restart: unless-stopped
     container_name: airflow
     ports:
       - "9000:9000"
