@@ -51,5 +51,4 @@ PROVIDER_B_TIMEOUT = env.int('PROVIDER_A_TIMEOUT', default=60+10)
 
 REDIS_HOST = env.str('REDIS_HOST', default='localhost')
 REDIS_PORT = env.str('REDIS_PORT', default="6377")
-REDIS_EXPIRE = env.int('REDIS_EXPIRE', default=3600)   # milliseconds
-
+REDIS_EXPIRE = env.int('REDIS_EXPIRE', default=3600)  # seconds

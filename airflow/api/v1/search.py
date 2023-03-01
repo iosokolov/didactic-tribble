@@ -47,6 +47,8 @@ async def get_search(request, search_id: UUID, currency: str):
                 converter=converter,
             )
 
+            items.sort(key=lambda x: x['price']['amount'])
+
         schema = ResultOutSchema()
         res = schema.dump({
             'search_id': record.request_uuid,

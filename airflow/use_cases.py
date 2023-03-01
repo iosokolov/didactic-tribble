@@ -43,7 +43,8 @@ class CurrencyConverter:
 
         coef = self.coefs[from_][to_]
         res = Fraction(amount) * coef
-        return res.numerator / Decimal(res.denominator)
+        res_decimal = res.numerator / Decimal(res.denominator)
+        return res_decimal
 
 
 def convert_results_to_currency(
@@ -55,7 +56,7 @@ def convert_results_to_currency(
         pricing = item['pricing']
 
         amount = converter.convert(
-            amount=pricing['total'],
+            amount=Decimal(pricing['total']),
             from_=pricing['currency'],
             to_=currency,
         )
