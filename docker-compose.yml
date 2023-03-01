@@ -36,6 +36,7 @@ services:
       - POSTGRES_HOST=localhost
 
   rabbitmq:
+    container_name: rabbitmq
     image: 'rabbitmq:3.6-management-alpine'
     ports:
       # The standard AMQP protocol port
@@ -46,6 +47,7 @@ services:
   redis:
     image: redis:6.2.6-alpine
     hostname: localhost
+    container_name: redis
     ports:
       - '6377:6379'
 

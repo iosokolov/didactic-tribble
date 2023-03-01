@@ -5,10 +5,7 @@ FROM python:3.10.8-slim-buster
 ENV PYTHONUNBUFFERED 1
 ENV POETRY_HOME="/opt/poetry"
 
-
-COPY airflow/ /app
 COPY ./pyproject.toml ./poetry.lock /app/
-WORKDIR /app
 
 RUN \
     apt-get update \
@@ -18,7 +15,11 @@ RUN \
     && cd /usr/local/bin \
     &&  ln -s /opt/poetry/bin/poetry \
     && poetry config virtualenvs.create false \
-    && poetry config virtualenvs.in-project false
+    && poetry config virtualenvs.in-project false \
+
+COPY airflow/ /app
+
+WORKDIR /app
 
 
 ARG DEV
