@@ -2,7 +2,7 @@ import asyncio
 
 import aioamqp
 
-import env_vars
+import settings
 from amqp.consumers import consumer
 
 

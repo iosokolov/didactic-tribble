@@ -1,6 +1,6 @@
 import json
 
-import env_vars
+import settings
 
 
 async def redis_get(app, *, key: str, default=None):

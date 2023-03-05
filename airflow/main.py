@@ -2,7 +2,7 @@ import sys
 
 from sanic import Sanic
 
-import env_vars
+import settings
 import routes
 from amqp.connection import start_consume, open_amqp, close_amqp
 from redis_service.connection import start_redis, stop_redis

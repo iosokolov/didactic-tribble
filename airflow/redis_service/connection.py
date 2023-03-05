@@ -1,6 +1,6 @@
 import aioredis
 
-import env_vars
+import settings
 
 
 async def start_redis(app, loop):

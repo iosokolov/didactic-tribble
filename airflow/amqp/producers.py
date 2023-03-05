@@ -1,7 +1,7 @@
 import json
 from uuid import UUID
 
-import env_vars
+import settings
 
 
 async def publish(app, payload: dict):

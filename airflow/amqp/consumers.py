@@ -3,7 +3,7 @@ import json
 import logging
 import sys
 
-import env_vars
+import settings
 from constants import StatusEnum
 from db import session_maker
 from models import Record

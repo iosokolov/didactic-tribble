@@ -1,6 +1,6 @@
 import httpx
 
-import env_vars
+import settings
 
 
 class ProviderClientA:

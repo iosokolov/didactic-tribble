@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 from pydantic.networks import PostgresDsn
 from sqlalchemy.ext.asyncio import create_async_engine
 
-import env_vars
+import settings
 
 
 class AsyncPostgresDsn(PostgresDsn):

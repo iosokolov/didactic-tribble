@@ -5,7 +5,7 @@ from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from db import session_maker
-from env_vars import CRON_CURRENCY_HOUR, CRON_CURRENCY_MINUTE
+from settings import CRON_CURRENCY_HOUR, CRON_CURRENCY_MINUTE
 from models import Rate
 from nbk.service import NbkService
 
