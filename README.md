@@ -35,3 +35,4 @@
 - authorization
 - pydantic
 - linter
+- parse xml to json (providers a, b)
