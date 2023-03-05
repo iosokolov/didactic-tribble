@@ -25,7 +25,7 @@ if __name__ == '__main__':
         app.listener('before_server_start')(start_redis)
         app.listener('before_server_stop')(stop_redis)
 
-    elif command == 'consume':
+    elif command == 'consumer':
         port = settings.CONSUMER_PORT
 
         app.listener('after_server_start')(start_consume)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         app.listener('before_server_start')(start_redis)
         app.listener('before_server_stop')(stop_redis)
 
-    elif command == 'schedule':
+    elif command == 'scheduler':
         app.listener('before_server_start')(init_scheduler)
         port = settings.SCHEDULE_PORT
 
