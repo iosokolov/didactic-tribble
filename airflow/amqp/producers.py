@@ -7,8 +7,8 @@ import settings
 async def publish(app, payload: dict):
     await app.ctx.channel.publish(
         payload=json.dumps(payload),
-        exchange_name=env_vars.EXCHANGE,
-        routing_key=env_vars.QUEUE,
+        exchange_name=settings.EXCHANGE,
+        routing_key=settings.QUEUE,
     )
 
 

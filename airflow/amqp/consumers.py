@@ -58,6 +58,6 @@ async def consumer(app):
     await app.ctx.channel.basic_qos(prefetch_count=10)
     await app.ctx.channel.basic_consume(
         callback=callback,
-        queue_name=env_vars.QUEUE,
+        queue_name=settings.QUEUE,
         no_ack=True
     )

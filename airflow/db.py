@@ -12,19 +12,19 @@ class AsyncPostgresDsn(PostgresDsn):
 
 DB_URI = AsyncPostgresDsn.build(
     scheme="postgresql+asyncpg",
-    user=env_vars.POSTGRES_USER,
-    password=env_vars.POSTGRES_PASSWORD,
-    host=env_vars.POSTGRES_HOST,
-    port=env_vars.POSTGRES_PORT,
-    path=f"/{env_vars.POSTGRES_DB}",
+    user=settings.POSTGRES_USER,
+    password=settings.POSTGRES_PASSWORD,
+    host=settings.POSTGRES_HOST,
+    port=settings.POSTGRES_PORT,
+    path=f"/{settings.POSTGRES_DB}",
 )
 
 engine = create_async_engine(
     DB_URI,
     pool_pre_ping=True,
-    echo=env_vars.ECHO,
-    pool_size=env_vars.DB_POOL_SIZE,
-    max_overflow=env_vars.DB_MAX_OVERFLOW,
+    echo=settings.ECHO,
+    pool_size=settings.DB_POOL_SIZE,
+    max_overflow=settings.DB_MAX_OVERFLOW,
 )
 
 session_maker = async_sessionmaker(engine)

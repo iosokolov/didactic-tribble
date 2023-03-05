@@ -11,7 +11,7 @@ async def redis_get(app, *, key: str, default=None):
     return json.loads(res)
 
 
-async def redis_set(app, *, key, value, expire=env_vars.REDIS_EXPIRE):
+async def redis_set(app, *, key, value, expire=settings.REDIS_EXPIRE):
     await app.ctx.redis.set(
         key,
         json.dumps(value),

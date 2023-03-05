@@ -17,11 +17,11 @@ async def bind_queue(channel, queue_name, exchange_name, routing_key=None, argum
 
 async def open_amqp(app):
     transport, protocol = await aioamqp.connect(
-        host=env_vars.AMQP_HOST,
-        login=env_vars.AMQP_USER,
-        password=env_vars.AMQP_PASS,
-        virtualhost=env_vars.AMQP_VHOST,
-        port=env_vars.AMQP_PORT,
+        host=settings.AMQP_HOST,
+        login=settings.AMQP_USER,
+        password=settings.AMQP_PASS,
+        virtualhost=settings.AMQP_VHOST,
+        port=settings.AMQP_PORT,
     )
 
     channel = await protocol.channel()
@@ -30,17 +30,17 @@ async def open_amqp(app):
     app.ctx.channel = channel
 
     await app.ctx.channel.exchange_declare(
-        exchange_name=env_vars.EXCHANGE,
+        exchange_name=settings.EXCHANGE,
         type_name='direct',
         durable=True
     )
 
     await bind_queue(
         channel=app.ctx.channel,
-        queue_name=env_vars.QUEUE,
-        exchange_name=env_vars.EXCHANGE,
+        queue_name=settings.QUEUE,
+        exchange_name=settings.EXCHANGE,
         arguments={
-            'x-dead-letter-exchange': env_vars.EXCHANGE,
+            'x-dead-letter-exchange': settings.EXCHANGE,
         }
     )
 

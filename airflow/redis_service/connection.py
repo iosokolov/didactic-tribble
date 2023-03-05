@@ -5,7 +5,7 @@ import settings
 
 async def start_redis(app, loop):
     app.ctx.redis = aioredis.from_url(
-        url=f'redis://{env_vars.REDIS_HOST}:{env_vars.REDIS_PORT}/',
+        url=f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/',
         encoding="utf-8",
         decode_responses=True,
     )

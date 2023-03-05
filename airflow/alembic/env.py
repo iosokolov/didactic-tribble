@@ -30,11 +30,11 @@ target_metadata = Model.metadata
 
 
 def format_db_url():
-    user = env_vars.POSTGRES_USER
-    password = env_vars.POSTGRES_PASSWORD
-    server = env_vars.POSTGRES_HOST
-    db = env_vars.POSTGRES_DB
-    port = env_vars.POSTGRES_PORT
+    user = settings.POSTGRES_USER
+    password = settings.POSTGRES_PASSWORD
+    server = settings.POSTGRES_HOST
+    db = settings.POSTGRES_DB
+    port = settings.POSTGRES_PORT
     return f"postgresql://{user}:{password}@{server}:{port}/{db}"
 
 
