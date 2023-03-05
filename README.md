@@ -34,3 +34,4 @@
 - tests
 - authorization
 - pydantic
+- linter
