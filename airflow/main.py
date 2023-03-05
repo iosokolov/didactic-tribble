@@ -6,7 +6,7 @@ import settings
 import routes
 from amqp.connection import start_consume, open_amqp, close_amqp
 from redis_service.connection import start_redis, stop_redis
-from cron_jobs import init_scheduler
+from cron_jobs import init_scheduler, update_currency_rates
 
 app = Sanic(settings.APP_NAME, strict_slashes=True)
 
@@ -16,6 +16,8 @@ if __name__ == '__main__':
     if command == 'server':
         port = settings.API_PORT
         app.blueprint(routes.api)
+
+        app.listener('before_server_start')(update_currency_rates)
 
         app.listener('before_server_start')(open_amqp)
         app.listener('before_server_stop')(close_amqp)
